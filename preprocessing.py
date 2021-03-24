@@ -1,6 +1,6 @@
 """Script can be used to preprocess files from the MIMII Dataset."""
 
-import zipfile
+from zipfile import ZipFile
 from collections import defaultdict
 from os import PathLike
 from pathlib import Path
@@ -9,6 +9,7 @@ from sys import argv
 import librosa
 import numpy as np
 import pandas as pd
+from tqdm import tqdm
 
 
 def get_audio_features(wavefile) -> dict:
@@ -17,8 +18,15 @@ def get_audio_features(wavefile) -> dict:
     :param wavefile: path to audio file
     """
     # load wave file, don't resample and don't merge 8 channels
-    Y, sr = librosa.load(wavefile, sr=None, mono=False)
-    return {"duration": librosa.get_duration(Y, sr)}
+    # Y, sr = librosa.load(wavefile, sr=None, mono=False)
+    Y, sr = librosa.load(wavefile)
+    rms = librosa.feature.rms(Y)
+    return {
+        "duration": librosa.get_duration(Y, sr),
+        "rms_mean": np.mean(rms),
+        "rms_median": np.mean(rms),
+        "rms_std": np.std(rms),
+    }
 
 
 def extract_dataset(filepath: str, sound_func=None) -> pd.DataFrame:
@@ -45,7 +53,7 @@ def extract_dataset(filepath: str, sound_func=None) -> pd.DataFrame:
         "is_normal": [],
     }
 
-    with zipfile.ZipFile(filepath, "r") as file:
+    with ZipFile(filepath, "r") as file:
         for soundfile in file.infolist():
             # loop through zip contents, only do .wav files
             if soundfile.filename.endswith(".wav"):
@@ -87,8 +95,11 @@ def process_audio(
     results = dataframe.copy()
 
     for datazip in pd.unique(dataframe["dataset"]):
+        # create progress bar
+        tqdm.pandas(desc="Extracting audio features…")
+
         # open the correct zipfile
-        with zipfile.ZipFile(datadir / datazip, "r") as opened_zipfile:
+        with ZipFile(datadir / datazip, "r") as opened_zipfile:
 
             def extract_apply(row):
                 """Helper function to apply on extracted wavefile."""
@@ -97,11 +108,11 @@ def process_audio(
                 return result
 
             # apply on dataframe
-            new_cols = dataframe[dataframe["dataset"] == datazip].apply(
+            new_cols = dataframe[dataframe["dataset"] == datazip].progress_apply(
                 extract_apply, axis=1, result_type="expand"
             )
 
-        # join the new columns wioth the result datafram
+        # join the new columns with the result dataframe
         results = results.join(new_cols)
 
     return results
@@ -111,8 +122,11 @@ if __name__ == "__main__":
     # Read zipfile from command line.
     if len(argv) > 1:
         path = Path(argv[1])
+        # create dataframe
         df = extract_dataset(path)
-        process_audio(df, datadir=path.parent)
+        # apply audio feature extraction
+        processed_df = process_audio(df, datadir=path.parent)
 
+        # if outfile specified, write to csv
         if len(argv) > 2:
-            df.to_csv(argv[2])
+            processed_df.to_csv(argv[2], index=False)
