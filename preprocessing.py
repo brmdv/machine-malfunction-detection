@@ -84,25 +84,25 @@ def process_audio(
     if not isinstance(datadir, Path):
         datadir = Path(datadir)
 
-    # # group dataframe by zip file
-    # dataframe.sort_values("dataset", inplace=True)
+    results = dataframe.copy()
 
-    # results dictionary, defaultdict so everything can be appended to list automatically
-    results = defaultdict(list)
+    for datazip in pd.unique(dataframe["dataset"]):
+        # open the correct zipfile
+        with zipfile.ZipFile(datadir / datazip, "r") as opened_zipfile:
 
-    # loop through datasets
-    for dataset_file in pd.unique(dataframe["dataset"]):
-        # open zipfile
-        with zipfile.ZipFile(datadir / dataset_file, "r") as dataset_file_opened:
-            # loop through data fields and apply func
-            for wave_file in dataframe[dataframe["dataset"] == dataset_file][
-                "wavefile"
-            ]:
-                # extract specific wave file
-                with dataset_file_opened.open(wave_file) as wave_file_opened:
+            def extract_apply(row):
+                """Helper function to apply on extracted wavefile."""
+                with opened_zipfile.open(row["wavefile"]) as opened_wavefile:
+                    result = func(opened_wavefile)
+                return result
 
-                    for key, val in func(wave_file_opened).items():
-                        results[key].append(val)
+            # apply on dataframe
+            new_cols = dataframe[dataframe["dataset"] == datazip].apply(
+                extract_apply, axis=1, result_type="expand"
+            )
+
+        # join the new columns wioth the result datafram
+        results = results.join(new_cols)
 
     return results
 
@@ -110,8 +110,9 @@ def process_audio(
 if __name__ == "__main__":
     # Read zipfile from command line.
     if len(argv) > 1:
-        df = extract_dataset(argv[1])
-        process_audio(df, datadir="/mnt/c/Users/Gebruiker/Downloads/")
+        path = Path(argv[1])
+        df = extract_dataset(path)
+        process_audio(df, datadir=path.parent)
 
         if len(argv) > 2:
-            df.write_csv(argv[2])
+            df.to_csv(argv[2])
