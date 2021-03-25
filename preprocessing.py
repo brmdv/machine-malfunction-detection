@@ -19,13 +19,23 @@ def get_audio_features(wavefile) -> dict:
     """
     # load wave file, don't resample and don't merge 8 channels
     # Y, sr = librosa.load(wavefile, sr=None, mono=False)
-    Y, sr = librosa.load(wavefile)
-    rms = librosa.feature.rms(Y)
+    y, sr = librosa.load(wavefile)
+    rms = librosa.feature.rms(y)
+    mfcc = librosa.feature.mfcc(y, sr)
+    mel = librosa.feature.melspectrogram(y, sr)
+
     return {
-        "duration": librosa.get_duration(Y, sr),
+        "duration": librosa.get_duration(y, sr),
         "rms_mean": np.mean(rms),
         "rms_median": np.mean(rms),
         "rms_std": np.std(rms),
+        "mfcc_mean": np.mean(mfcc),
+        "mfcc_median": np.mean(mfcc),
+        "mfcc_std": np.std(mfcc),
+        "rms_std": np.std(rms),
+        "mel_mean": np.mean(mel),
+        "mel_median": np.mean(mel),
+        "mel_std": np.std(mel),
     }
 
 
