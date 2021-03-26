@@ -1,10 +1,9 @@
 """Script can be used to preprocess files from the MIMII Dataset."""
 
-from zipfile import ZipFile
-from collections import defaultdict
 from os import PathLike
 from pathlib import Path
 from sys import argv
+from zipfile import ZipFile
 
 import librosa
 import numpy as np
@@ -19,23 +18,28 @@ def get_audio_features(wavefile) -> dict:
     """
     # load wave file, don't resample and don't merge 8 channels
     # Y, sr = librosa.load(wavefile, sr=None, mono=False)
-    y, sr = librosa.load(wavefile)
+    y, sr = librosa.load(wavefile, sr=None)  # don't resample, this is slow
     rms = librosa.feature.rms(y)
-    mfcc = librosa.feature.mfcc(y, sr)
-    mel = librosa.feature.melspectrogram(y, sr)
+    # first calcultate spectogram, so following functions can reuse this
+    S = librosa.stft(y)
+    mel = librosa.feature.melspectrogram(S=S, sr=sr)
+    mfcc = librosa.feature.mfcc(S=S)
+    spectral_rms = librosa.feature.rms(S=S)
 
     return {
-        "duration": librosa.get_duration(y, sr),
-        "rms_mean": np.mean(rms),
-        "rms_median": np.mean(rms),
-        "rms_std": np.std(rms),
-        "mfcc_mean": np.mean(mfcc),
-        "mfcc_median": np.mean(mfcc),
-        "mfcc_std": np.std(mfcc),
-        "rms_std": np.std(rms),
-        "mel_mean": np.mean(mel),
-        "mel_median": np.mean(mel),
-        "mel_std": np.std(mel),
+        # "duration": librosa.get_duration(y, sr),
+        "T_rms_mean": np.mean(rms),
+        "T_rms_median": np.median(rms),
+        "T_rms_std": np.std(rms),
+        "F_mel_mean": np.mean(mel),
+        "F_mel_median": np.median(mel),
+        "F_mel_std": np.std(mel),
+        "F_mel_rms_mean": np.mean(spectral_rms),
+        "F_mel_rms_median": np.median(spectral_rms),
+        "F_mel_rms_std": np.std(spectral_rms),
+        "F_mfcc_mean": np.mean(mfcc),
+        "F_mfcc_median": np.median(mfcc),
+        "F_mfcc_std": np.std(mfcc),
     }
 
 
@@ -130,6 +134,11 @@ def process_audio(
 
 if __name__ == "__main__":
     # Read zipfile from command line.
+    if len(argv) > 2:
+        out_path = Path(argv[2])
+        if out_path.exists():
+            print(f"Warning, {out_path} will be overwritten.")
+
     if len(argv) > 1:
         path = Path(argv[1])
         # create dataframe
@@ -139,4 +148,4 @@ if __name__ == "__main__":
 
         # if outfile specified, write to csv
         if len(argv) > 2:
-            processed_df.to_csv(argv[2], index=False)
+            processed_df.to_csv(out_path, index=False)
