@@ -23,14 +23,14 @@ def get_audio_features(wavefile) -> dict:
     rms = librosa.feature.rms(y)
     zcr = librosa.feature.zero_crossing_rate(y)
     # first calculate spectogram, so following functions can reuse this
-    S = librosa.stft(y)
+    S = np.abs(librosa.stft(y))
 
     mel = librosa.feature.melspectrogram(S=S, sr=sr)
     mfcc = librosa.feature.mfcc(sr=sr, S=S)
     freq_rms = librosa.feature.rms(S=S)
-    spectral_bandwith = librosa.feature.spectral_bandwith(sr=sr, S=S)
+    spectral_bandwidth = librosa.feature.spectral_bandwidth(sr=sr, S=S)
     spectral_contrast = librosa.feature.spectral_contrast(sr=sr, S=S)
-    spectral_flatness = librosa.feature.spectral_flatness(sr=sr, S=S)
+    spectral_flatness = librosa.feature.spectral_flatness(S=S)
     spectral_rolloff = librosa.feature.spectral_rolloff(sr=sr, S=S)
 
     return {
@@ -51,8 +51,8 @@ def get_audio_features(wavefile) -> dict:
         "F_mfcc_std": np.std(mfcc),
         "F_flatness_mean": np.mean(spectral_flatness),
         "F_flatness_std": np.std(spectral_flatness),
-        "F_bandwith_mean": np.mean(spectral_bandwith),
-        "F_bandwith_std": np.std(spectral_bandwith),
+        "F_bandwidth_mean": np.mean(spectral_bandwidth),
+        "F_bandwidth_std": np.std(spectral_bandwidth),
         "F_contrast_mean": np.mean(spectral_contrast),
         "F_contrast_std": np.std(spectral_contrast),
         "F_rolloff_mean": np.mean(spectral_rolloff),
@@ -60,7 +60,7 @@ def get_audio_features(wavefile) -> dict:
     }
 
 
-def extract_dataset(filepath: PathLike, sound_func=None) -> pd.DataFrame:
+def extract_dataset(filepath: str, sound_func=None) -> pd.DataFrame:
     """Extract data points from MIMII zip file. Every .wav file will become one
     data point. An function to extract data from the content of each file can
     be specified.
