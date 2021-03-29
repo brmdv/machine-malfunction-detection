@@ -6,6 +6,7 @@ from sys import argv
 from zipfile import ZipFile
 
 import librosa
+from librosa.feature.spectral import spectral_flatness
 import numpy as np
 import pandas as pd
 from tqdm import tqdm
@@ -20,30 +21,46 @@ def get_audio_features(wavefile) -> dict:
     # Y, sr = librosa.load(wavefile, sr=None, mono=False)
     y, sr = librosa.load(wavefile, sr=None)  # don't resample, this is slow
     rms = librosa.feature.rms(y)
-    # first calcultate spectogram, so following functions can reuse this
+    zcr = librosa.feature.zero_crossing_rate(y)
+    # first calculate spectogram, so following functions can reuse this
     S = librosa.stft(y)
+
     mel = librosa.feature.melspectrogram(S=S, sr=sr)
-    mfcc = librosa.feature.mfcc(S=S)
-    spectral_rms = librosa.feature.rms(S=S)
+    mfcc = librosa.feature.mfcc(sr=sr, S=S)
+    freq_rms = librosa.feature.rms(S=S)
+    spectral_bandwith = librosa.feature.spectral_bandwith(sr=sr, S=S)
+    spectral_contrast = librosa.feature.spectral_contrast(sr=sr, S=S)
+    spectral_flatness = librosa.feature.spectral_flatness(sr=sr, S=S)
+    spectral_rolloff = librosa.feature.spectral_rolloff(sr=sr, S=S)
 
     return {
         # "duration": librosa.get_duration(y, sr),
         "T_rms_mean": np.mean(rms),
-        "T_rms_median": np.median(rms),
+        # "T_rms_median": np.median(rms),
         "T_rms_std": np.std(rms),
+        "T_zcr_mean": np.mean(zcr),
+        "T_zcr_std": np.mean(zcr),
         "F_mel_mean": np.mean(mel),
-        "F_mel_median": np.median(mel),
+        # "F_mel_median": np.median(mel),
         "F_mel_std": np.std(mel),
-        "F_mel_rms_mean": np.mean(spectral_rms),
-        "F_mel_rms_median": np.median(spectral_rms),
-        "F_mel_rms_std": np.std(spectral_rms),
+        "F_mel_rms_mean": np.mean(freq_rms),
+        # "F_mel_rms_median": np.median(spectral_rms),
+        "F_mel_rms_std": np.std(freq_rms),
         "F_mfcc_mean": np.mean(mfcc),
-        "F_mfcc_median": np.median(mfcc),
+        # "F_mfcc_median": np.median(mfcc),
         "F_mfcc_std": np.std(mfcc),
+        "F_flatness_mean": np.mean(spectral_flatness),
+        "F_flatness_std": np.std(spectral_flatness),
+        "F_bandwith_mean": np.mean(spectral_bandwith),
+        "F_bandwith_std": np.std(spectral_bandwith),
+        "F_contrast_mean": np.mean(spectral_contrast),
+        "F_contrast_std": np.std(spectral_contrast),
+        "F_rolloff_mean": np.mean(spectral_rolloff),
+        "F_rolloff_std": np.std(spectral_rolloff),
     }
 
 
-def extract_dataset(filepath: str, sound_func=None) -> pd.DataFrame:
+def extract_dataset(filepath: PathLike, sound_func=None) -> pd.DataFrame:
     """Extract data points from MIMII zip file. Every .wav file will become one
     data point. An function to extract data from the content of each file can
     be specified.
@@ -74,7 +91,7 @@ def extract_dataset(filepath: str, sound_func=None) -> pd.DataFrame:
                 # convert to Path for easy
                 soundfilename = Path(soundfile.filename)
                 # target feature: is normal or abnormal?
-                is_normal = not soundfilename.parts[-2].endswith("abnormal")
+                is_normal = 0 if soundfilename.parts[-2].endswith("abnormal") else 1
                 # machine id from folder name: id_01 → 1
                 machine_id = int(soundfilename.parts[-3].split("_")[-1])
 
