@@ -1,4 +1,8 @@
-"""Script can be used to preprocess files from the MIMII Dataset."""
+"""Script can be used to preprocess files from the MIMII Dataset. 
+
+Command line usage:
+   python preprocess.py INPUT_DATA.zip OUTPUT_CSV.csv
+"""
 
 from os import PathLike
 from pathlib import Path
@@ -166,3 +170,6 @@ if __name__ == "__main__":
         # if outfile specified, write to csv
         if len(argv) > 2:
             processed_df.to_csv(out_path, index=False)
+
+    else:
+        print(__doc__)
