@@ -1,4 +1,5 @@
 # %%
+from pathlib import Path
 import pandas as pd
 
 from preprocessing import extract_dataset, get_audio_features, process_audio
@@ -31,5 +32,28 @@ valve_data = pd.concat(
 valve_data.reset_index(drop=True, inplace=True)
 # %% save to csv
 valve_data.to_csv("processed_data/valve_all.csv.xz")
+
+# %%
+get_audio_features("test_audio/00000000.wav")
+# %%
+def get_all_training_data(machine, datafolder):
+    folder = Path(datafolder)
+
+    # collect data from filenames
+    data = [
+        extract_dataset(folder / f"0_dB_{machine}.zip"),
+        extract_dataset(folder / f"-6_dB_{machine}.zip"),
+        extract_dataset(folder / f"6_dB_{machine}.zip"),
+    ]
+
+    # get all audio features
+    processed_data = [process_audio(data_x, datadir=datafolder) for data_x in data]
+
+    # concat and save to csv
+    processed_data_all = pd.concat(processed_data)
+    processed_data_all.to_csv(
+        Path("processed_data") / f"{machine}_all.csv.xz", index=False
+    )
+
 
 # %%
