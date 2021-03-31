@@ -1,3 +1,0 @@
-# MIMII dataset 
-
-## Data preprocessing
