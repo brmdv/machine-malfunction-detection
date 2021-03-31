@@ -1,7 +1,9 @@
 # %%
+from os import makedirs
 from pathlib import Path
-import pandas as pd
 from sys import argv
+
+import pandas as pd
 
 from preprocessing import extract_dataset, get_audio_features, process_audio
 
@@ -23,8 +25,11 @@ def get_all_training_data(machine, datafolder):
 
     # concat and save to csv
     processed_data_all = pd.concat(processed_data)
-    outpath = Path("processed_data") / f"{machine}_all.csv.xz"
-    processed_data_all.to_csv(outpath, index=False)
+
+    outpath = Path("./processed_data")
+    if not outpath.exists():
+        makedirs(outpath)
+    processed_data_all.to_csv(outpath / f"{machine}_all.csv.xz", index=False)
     print(f"Saved to {outpath}")
 
 

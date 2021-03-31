@@ -100,7 +100,7 @@ def extract_dataset(filepath: str, sound_func=None) -> pd.DataFrame:
                 machine_id = int(soundfilename.parts[-3].split("_")[-1])
 
                 # add row to data
-                data["wavefile"].append(str(soundfilename))
+                data["wavefile"].append(soundfile)
                 data["is_normal"].append(is_normal)
                 data["machine_id"].append(machine_id)
 
