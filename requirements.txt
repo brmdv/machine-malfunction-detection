@@ -1,17 +1,22 @@
+appdirs==1.4.4
 argon2-cffi @ file:///D:/bld/argon2-cffi_1605217273648/work
 async-generator==1.10
 attrs @ file:///home/conda/feedstock_root/build_artifacts/attrs_1605083924122/work
+audioread==2.1.9
 backcall @ file:///home/conda/feedstock_root/build_artifacts/backcall_1592338393461/work
 backports.functools-lru-cache==1.6.1
 bleach @ file:///home/conda/feedstock_root/build_artifacts/bleach_1612213472466/work
 catboost @ https://pypi.org/packages/cp38/c/catboost/catboost-0.24.4-cp38-none-win_amd64.whl
 certifi==2020.12.5
 cffi @ file:///D:/bld/cffi_1613414140225/work
+chardet==4.0.0
 colorama @ file:///home/conda/feedstock_root/build_artifacts/colorama_1602866480661/work
 cycler==0.10.0
 decorator==4.4.2
 defusedxml @ file:///home/conda/feedstock_root/build_artifacts/defusedxml_1615232257335/work
 entrypoints @ file:///home/conda/feedstock_root/build_artifacts/entrypoints_1605121927639/work/dist/entrypoints-0.3-py2.py3-none-any.whl
+idna==2.10
+imbalanced-learn @ file:///home/conda/feedstock_root/build_artifacts/imbalanced-learn_1613662486985/work
 importlib-metadata @ file:///D:/bld/importlib-metadata_1615778896299/work
 ipykernel @ file:///D:/bld/ipykernel_1613853122135/work/dist/ipykernel-5.5.0-py3-none-any.whl
 ipython @ file:///D:/bld/ipython_1614393744923/work
@@ -24,6 +29,8 @@ jupyter-client @ file:///home/conda/feedstock_root/build_artifacts/jupyter_clien
 jupyter-core @ file:///D:/bld/jupyter_core_1612125450516/work
 jupyterlab-pygments @ file:///home/conda/feedstock_root/build_artifacts/jupyterlab_pygments_1601375948261/work
 kiwisolver @ file:///D:/bld/kiwisolver_1610099948875/work
+librosa==0.8.0
+llvmlite==0.36.0
 MarkupSafe @ file:///D:/bld/markupsafe_1610127683324/work
 matplotlib @ file:///D:/bld/matplotlib-suite_1611858820206/work
 mistune @ file:///D:/bld/mistune_1610113104461/work
@@ -32,6 +39,7 @@ nbconvert @ file:///D:/bld/nbconvert_1605402041690/work
 nbformat @ file:///home/conda/feedstock_root/build_artifacts/nbformat_1611005694671/work
 nest-asyncio @ file:///home/conda/feedstock_root/build_artifacts/nest-asyncio_1605195931949/work
 notebook @ file:///D:/bld/notebook_1616419472987/work
+numba==0.53.1
 numpy @ file:///D:/bld/numpy_1612953165809/work
 olefile @ file:///home/conda/feedstock_root/build_artifacts/olefile_1602866521163/work
 packaging @ file:///home/conda/feedstock_root/build_artifacts/packaging_1612459636436/work
@@ -41,6 +49,8 @@ parso @ file:///home/conda/feedstock_root/build_artifacts/parso_1607618318316/wo
 patsy==0.5.1
 pickleshare @ file:///home/conda/feedstock_root/build_artifacts/pickleshare_1602536217715/work
 Pillow @ file:///D:/bld/pillow_1615244206091/work
+plotly @ file:///home/conda/feedstock_root/build_artifacts/plotly_1610471242275/work
+pooch==1.3.0
 prometheus-client @ file:///home/conda/feedstock_root/build_artifacts/prometheus_client_1605543085815/work
 prompt-toolkit @ file:///home/conda/feedstock_root/build_artifacts/prompt-toolkit_1616432837031/work
 pycparser @ file:///home/conda/feedstock_root/build_artifacts/pycparser_1593275161868/work
@@ -56,18 +66,24 @@ pytz @ file:///home/conda/feedstock_root/build_artifacts/pytz_1612179539967/work
 pywin32==300
 pywinpty @ file:///D:/bld/pywinpty_1602377663724/work
 pyzmq @ file:///D:/bld/pyzmq_1614611907285/work
+requests==2.25.1
+resampy==0.2.2
+retrying==1.3.3
 scikit-learn @ file:///D:/bld/scikit-learn_1611079981849/work
 scipy @ file:///C:/bld/scipy_1615956101586/work
 seaborn @ file:///home/conda/feedstock_root/build_artifacts/seaborn-split_1611834504644/work
 Send2Trash==1.5.0
 six @ file:///home/conda/feedstock_root/build_artifacts/six_1590081179328/work
 sklearn-pandas @ file:///home/conda/feedstock_root/build_artifacts/sklearn-pandas_1614584646437/work
+SoundFile==0.10.3.post1
 statsmodels @ file:///D:/bld/statsmodels_1612273760174/work
 terminado @ file:///D:/bld/terminado_1616072349026/work
 testpath==0.4.4
 threadpoolctl @ file:///tmp/tmp79xdzxkt/threadpoolctl-2.1.0-py3-none-any.whl
 tornado @ file:///D:/bld/tornado_1610094858390/work
+tqdm @ file:///home/conda/feedstock_root/build_artifacts/tqdm_1614982742480/work
 traitlets @ file:///home/conda/feedstock_root/build_artifacts/traitlets_1602771532708/work
+urllib3==1.26.4
 wcwidth @ file:///home/conda/feedstock_root/build_artifacts/wcwidth_1600965781394/work
 webencodings==0.5.1
 wincertstore==0.2
