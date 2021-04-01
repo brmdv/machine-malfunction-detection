@@ -43,7 +43,7 @@ def get_audio_features(wavefile) -> dict:
         # "T_rms_median": np.median(rms),
         "T_rms_std": np.std(rms),
         "T_zcr_mean": np.mean(zcr),
-        "T_zcr_std": np.mean(zcr),
+        "T_zcr_std": np.std(zcr),
         "F_mel_mean": np.mean(mel),
         # "F_mel_median": np.median(mel),
         "F_mel_std": np.std(mel),
@@ -100,7 +100,7 @@ def extract_dataset(filepath: str, sound_func=None) -> pd.DataFrame:
                 machine_id = int(soundfilename.parts[-3].split("_")[-1])
 
                 # add row to data
-                data["wavefile"].append(soundfile)
+                data["wavefile"].append(soundfile.filename)
                 data["is_normal"].append(is_normal)
                 data["machine_id"].append(machine_id)
 
