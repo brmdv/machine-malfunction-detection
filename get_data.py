@@ -57,3 +57,16 @@ def get_all_training_data(machine, datafolder):
 
 
 # %%
+pump_data = pd.concat(
+    [
+        pd.read_csv("./processed_data/0dB_pump.csv"),
+        pd.read_csv("./processed_data/6dB_pump.csv"),
+        pd.read_csv("./processed_data/pump_-6db.csv"),
+    ]
+)
+pump_data.reset_index(drop=True, inplace=True)
+
+# %% save to csv
+pump_data.to_csv("processed_data/pump_all.csv.xz")
+
+# %%
