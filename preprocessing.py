@@ -40,18 +40,14 @@ def get_audio_features(wavefile) -> dict:
     return {
         # "duration": librosa.get_duration(y, sr),
         "T_rms_mean": np.mean(rms),
-        # "T_rms_median": np.median(rms),
         "T_rms_std": np.std(rms),
         "T_zcr_mean": np.mean(zcr),
         "T_zcr_std": np.std(zcr),
         "F_mel_mean": np.mean(mel),
-        # "F_mel_median": np.median(mel),
         "F_mel_std": np.std(mel),
         "F_mel_rms_mean": np.mean(freq_rms),
-        # "F_mel_rms_median": np.median(spectral_rms),
         "F_mel_rms_std": np.std(freq_rms),
         "F_mfcc_mean": np.mean(mfcc),
-        # "F_mfcc_median": np.median(mfcc),
         "F_mfcc_std": np.std(mfcc),
         "F_flatness_mean": np.mean(spectral_flatness),
         "F_flatness_std": np.std(spectral_flatness),
@@ -70,7 +66,7 @@ def extract_dataset(filepath: str, sound_func=None) -> pd.DataFrame:
     be specified.
 
     :param filepath: Path to the zip file which holds all the wav files.
-    :param sound_func: Function that extracts audio features from each wave file. 
+    :param sound_func: Function that extracts audio features from each wave file.
     :return: Pandas DataFrame with all features.
     """
     # convert to Path object for easy path methods
@@ -117,7 +113,7 @@ def process_audio(
 ):
     """Apply a given function to every wave file in the dataframe with sound
     files. The resulting features will be added as extra columns to the
-    dataframe. 
+    dataframe.
 
     :param dataframe: input (and output) dataframe
     :param func: function to apply on, defaults to get_audio_features
