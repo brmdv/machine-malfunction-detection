@@ -2,7 +2,7 @@
 ---
 ## Malfunctioning Industrial Machine Investigation and Inspection Using Sound
 
-- Repository: `repo_name`
+- Repository: `codit-usecase`
 - Duration: `2 weeks`
 - Deadline: `04/02/2021 10:00 AM`
 - 'Team challenge'
@@ -108,9 +108,9 @@ codit-usecase
 #### How to get 3d_location ploting
 
 1. Setup python environment  `3.8.0`
-2. Install all libaries `pip install -r requirements.txt`
-3. Download important "sound data" files
-4. Run the `.ipynb` in jupyter notebook
+2. Install all libaries `pip install -r `requirements.txt`
+3. Download important "sound data" files, generate `csv` using 'get_data.py'
+4. Run all `.ipynb` inside jupyter notebook to retrain and generate pickel files.
 5. 
 6. 
 7. 
