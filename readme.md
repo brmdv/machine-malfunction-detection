@@ -2,7 +2,7 @@
 ---
 ## Malfunctioning Industrial Machine Investigation and Inspection Using Sound
 
-- Repository: `codit-usecase`
+- Repository: `Malfunctioning_Industrial_Machine_Investigation_and_Inspection_Using_Sound`
 - Duration: `2 weeks`
 - Deadline: `04/02/2021 10:00 AM`
 - 'Team challenge'
@@ -49,7 +49,7 @@ This dataset is a sound dataset for malfunctioning industrial machine investigat
 | imblearn	|offering a number of re-sampling techniques.	 |
 | warnings	|to remove, move, copy files.			 |
 | sklearn	|Machine learning library for the Python. 	 |
-| bram		|info						 |
+| librosa 	|to analysis music and audio. 			 |
 
 
 **Note:** Just use command `pip install -r requiement.txt` to install the required libary with correct version and run the program smoothly.
@@ -98,6 +98,7 @@ codit-usecase
 │   │ Slider_ML_model.ipynb :notebook that contain trainning, pickel creatin script and abnormal sound clusting for machine slider.
 │   │ Fan_ML_model.ipynb    :notebook that contain trainning, pickel creatin script and abnormal sound clusting for machine fan.
 │   │ Valve_ML_model.ipynb  :notebook that contain trainning, pickel creatin script and abnormal sound clusting for machine valve.
+│   │ predict.py	    :end user script file, script to how user upload data and decide what model to use.
 │   │
 │   │ saved_model      	    :directory contains all saved pickel files of the machine learning model.
 │   │ dataset		    ::directory contains all .pynb file that does the preprocessing and fearure extration .
@@ -110,15 +111,13 @@ codit-usecase
 ---
 
 # Instruction
-#### How to get 3d_location ploting
+#### How to Prediction
 
 1. Setup python environment  `3.8.0`
 2. Install all libaries `pip install -r `requirements.txt`
 3. Download important "sound data" files, generate `csv` using 'get_data.py'
 4. Run all `.ipynb` inside jupyter notebook to retrain and generate pickel files.
-5. 
-6. 
-7. 
+5. Run `predict.py` and fill the information as requested and get the prediction. 
 
 ---
 # Next Step
