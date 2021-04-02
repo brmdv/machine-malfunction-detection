@@ -65,7 +65,12 @@ This dataset is a sound dataset for malfunctioning industrial machine investigat
     * https://zenodo.org/record/3384388#.YGXS5ntR3-j
 
 
-# Architecture
+# Repo Branch
+* Main : Root branch handel and maintained by [Bram De Vroey](https://github.com/brmdv)
+* Sijal : Branch handel and mainted by [Sijal Kumar Joshi](https://github.com/sijal001)
+
+
+# Repo Architecture
 
 ```
 codit-usecase
