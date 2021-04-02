@@ -88,7 +88,7 @@ def predict_failure(sound, machine_type, model=None):
     return y_pred
 
 
-def prediciton_test_helper(machine):
+def prediction_test_helper(machine):
     prediction = predict_failure(
         [f"test_audio/{machine}_abnormal.wav", f"test_audio/{machine}_normal.wav",],
         f"{machine}",
@@ -98,10 +98,10 @@ def prediciton_test_helper(machine):
 
 
 def test_predictions():
-    test_prediction("valve")
-    test_prediction("pump")
-    test_prediction("fan")
-    test_prediction("slider")
+    prediction_test_helper("valve")
+    prediction_test_helper("pump")
+    prediction_test_helper("fan")
+    prediction_test_helper("slider")
 
 
 if __name__ == "__main__":
