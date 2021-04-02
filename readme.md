@@ -52,9 +52,9 @@ This dataset is a sound dataset for malfunctioning industrial machine investigat
 | bram		|info						 |
 
 
-**Note:** Just use command below to install the required libary with correct version to run the program smoothly.
+**Note:** Just use command `pip install -r requiement.txt` to install the required libary with correct version and run the program smoothly.
 
-"pip install -r requiement.txt"
+
 
 
 # **MIMII Dataset: Sound Dataset for Malfunctioning Industrial Machine Investigation and Inspection**
