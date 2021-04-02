@@ -12,7 +12,7 @@ def predict_failure(sound, machine_type, model=None):
     :param sound: Sound file that will be analysed. Can also be a list of paths.
     :param machine_type: Type of machine. One of "slider", "valve", "fan", "pump"
     :param model: Optional, select pickled model file.
-    :return: Array with 0 or 1 (normal / abnormal) for each soundfile.
+    :return: Array with 0 or 1 (abnormal / normal) for each soundfile.
     """
     # select and load trained model
     if model is None:
@@ -87,9 +87,17 @@ def predict_failure(sound, machine_type, model=None):
 
 
 # test
+if __name__ == "__main__":
 
-print(
-    predict_failure(
-        ["test_audio/slider_abnormal.wav", "test_audio/slider_normal.wav"], "slider"
-    )
-)
+    def test_prediction(machine):
+        prediction = predict_failure(
+            [f"test_audio/{machine}_abnormal.wav", f"test_audio/{machine}_normal.wav",],
+            f"{machine}",
+        )
+        assert prediction[0] == 0 and prediction[1] == 1
+        print(f"{machine:>10}: {prediction}")
+
+    test_prediction("valve")
+    test_prediction("pump")
+    test_prediction("fan")
+    test_prediction("slider")
