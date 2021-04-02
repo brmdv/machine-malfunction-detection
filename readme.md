@@ -76,6 +76,7 @@ codit-usecase
 │   │ Pump_data_analysis    :notebook that contain data, Machine learning model, metric,statics, etc. pump.
 │   │ Slider_data_analysis  :notebook that contain data, Machine learning model, metric,statics, etc. slider.
 │   │ Valve_data_analysis   :notebook that contain data, Machine learning model, metric,statics, etc. valve.
+│   │
 │   │ dataset		    ::directory contains all .pynb file that does the preprocessing and fearure extration .
 │     │__
 │	 processed_data     :directory contains the .csv files that contains the main machine features and information.
