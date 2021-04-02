@@ -60,7 +60,9 @@ All the data preprocessing is done inside [_preprocessing.py_](preprocessing.py)
 
 The classification of (ab)normal sounds is done with a Random Forrest classification.  
 
-The dataset was inbalanced, i.e. there were much more normal than abnormal sound files. In order to resolve these issues, the training data was resamples
+The dataset was inbalanced, i.e. there were much more normal than abnormal sound files. In order to resolve these issues, the training data was upsampled with the library `imblearn`.
+
+MOre detailed descriptions of the training process can be found in the notebooks in the directory _notebooks/_, and in the branch `sijal` of this repository.
 
 ---
 
@@ -78,20 +80,19 @@ ABNORMAL
 Required packages are listed in [_requirements.txt_](requirements.txt). 
 ### Requirements
 
-* **Python version:** `3.8.8`
 
 **Imporant Libaries:**
 
 | Library       | Used to                                        |
 | ------------- | :----------------------------------------------|
-| numpy		| to work around multi-dimensional of generic data|
-| pandas	| to remove, move, copy files.			 |
+| numpy		| to work around multi-dimensional of generic data |
+| pandas	| to remove, move, copy files.					 |
 | matplotlib     |to genereate ploting.		                 |
-| sklearn	| Machine learning library for the Python. 	 |
+| sklearn	| Machine learning library for the Python. 	     |
 | imblearn	| offering a number of re-sampling techniques.	 |
 
 
-**Note:** Just use command `pip install -r requiement.txt` to install the required libary with correct version and run the program smoothly.
+**Note:** Just use command `pip install -r requirements.txt` to install the required libaries with correct version and run the program smoothly.
 
 ### Project files
 
