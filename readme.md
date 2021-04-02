@@ -5,6 +5,10 @@
 - Repository: `repo_name`
 - Duration: `2 weeks`
 - Deadline: `04/02/2021 10:00 AM`
+- 'Team challenge'
+- Team Members:
+	- [Bram De Vroey](https://github.com/brmdv)
+	- [Sijal Kumar Joshi](https://github.com/sijal001)
 
 
 # Mission objectives
