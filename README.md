@@ -104,7 +104,7 @@ codit-usecase
 │   requirements.txt        :packages to install to run the program
 │   .gitignore              :specifies which files to ignore when pushing to the repository
 │__   
-│  Data_Model_analysis      :directory contain all the main .ipynb that create the machine model that train test and creates a pickel files.
+│  notebooks      :directory contain all the main .ipynb that create the machine model that train test and creates a pickel files.
 │   │
 │   │ Fan_data_analysis     :notebook that contain data, Machine learning model, metric,statics, etc. fan.
 │   │ Pump_data_analysis    :notebook that contain data, Machine learning model, metric,statics, etc. pump.
@@ -116,20 +116,9 @@ codit-usecase
 │	 processed_data     :directory contains the .csv files that contains the main machine features and information.
 │	 preprocessing.py   :
 │	 get_data.py        :
-│__   
-│  main		    	    :directory contain all the main .ipynb that create the machine model that train test and creates a pickel files.
-│   │
-│   │ Pump_ML_model.ipynb   :notebook that contain trainning, pickel creatin script and abnormal sound clusting for machine pump.
-│   │ Slider_ML_model.ipynb :notebook that contain trainning, pickel creatin script and abnormal sound clusting for machine slider.
-│   │ Fan_ML_model.ipynb    :notebook that contain trainning, pickel creatin script and abnormal sound clusting for machine fan.
-│   │ Valve_ML_model.ipynb  :notebook that contain trainning, pickel creatin script and abnormal sound clusting for machine valve.
-│   │
-│   │ saved_model      	    :directory contains all saved pickel files of the machine learning model.
-│   │ dataset		    :directory contains all .pynb file that does the preprocessing and fearure extration.:
-│     │__
-│	 processed_data     :directory contains the .csv files that contains the main machine features and information.
-│	 preprocessing.py   :
-│	 get_data.py        :
+│	 processed_data     : directory contains the .csv files that contains the main machine features and information.
+│	 preprocessing.py   : script that contains 
+│	 get_data.py        : script that was used to collect all the data.
 ```
 
 ---
