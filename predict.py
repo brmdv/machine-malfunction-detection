@@ -2,7 +2,7 @@ from builtins import FileNotFoundError, RuntimeError, hasattr, isinstance
 from pathlib import Path
 import pickle
 import numpy as np
-
+from sys import argv
 from preprocessing import get_audio_features
 
 
@@ -67,3 +67,12 @@ print(
         ["test_audio/slider_abnormal.wav", "test_audio/slider_normal.wav"], "slider"
     )
 )
+
+
+if __name__ == "__main__":
+    # command line functionality
+    if len(argv) == 3:
+        prediction = predict_failure(argv[1], argv[2])
+        print(["ABNORMAL", "NORMAL"][prediction])
+    else:
+        print("USAGE:\n", "python predict.py SOUND_FILE MAChINE_TYPE")

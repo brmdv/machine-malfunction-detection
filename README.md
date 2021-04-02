@@ -34,7 +34,7 @@ All the data preprocessing is done inside [_preprocessing.py_](preprocessing.py)
 ## Usage
 
 
-The trained models are saved as pickled Skykit-Learn files and can be found in the folder *saved_model/*. 
+The trained models are saved as pickled Skikit-Learn files and can be found in the folder *saved_model/*. 
 
 In [_predict.py_](predict.py), a function `predict_failure()` is available to predict whether a provided sound file is _normal_ or _abnormal_. If the machine type is provided, the correct pre-trained model will be selected automatically.
 The file can also be used dreclty in the terminal, to classify a sound file, e.g.
