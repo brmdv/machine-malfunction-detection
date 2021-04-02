@@ -1,6 +1,8 @@
+import pickle
 from builtins import FileNotFoundError, RuntimeError, hasattr, isinstance
 from pathlib import Path
-import pickle
+from sys import argv
+
 import numpy as np
 
 from preprocessing import get_audio_features
@@ -86,18 +88,26 @@ def predict_failure(sound, machine_type, model=None):
     return y_pred
 
 
-# test
-if __name__ == "__main__":
+def prediciton_test_helper(machine):
+    prediction = predict_failure(
+        [f"test_audio/{machine}_abnormal.wav", f"test_audio/{machine}_normal.wav",],
+        f"{machine}",
+    )
+    assert prediction[0] == 0 and prediction[1] == 1
+    print(f"{machine:>10}: {prediction}")
 
-    def test_prediction(machine):
-        prediction = predict_failure(
-            [f"test_audio/{machine}_abnormal.wav", f"test_audio/{machine}_normal.wav",],
-            f"{machine}",
-        )
-        assert prediction[0] == 0 and prediction[1] == 1
-        print(f"{machine:>10}: {prediction}")
 
+def test_predictions():
     test_prediction("valve")
     test_prediction("pump")
     test_prediction("fan")
     test_prediction("slider")
+
+
+if __name__ == "__main__":
+    # command line functionality
+    if len(argv) == 3:
+        prediction = predict_failure(argv[1], argv[2])
+        print(["ABNORMAL", "NORMAL"][prediction])
+    else:
+        print("USAGE:\n", "python predict.py SOUND_FILE MACHINE_TYPE")

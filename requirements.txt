@@ -1,4 +1,4 @@
-tqdm
-numpy
-pandas
-librosa
+librosa==0.8.0
+numpy==1.20.2
+pandas==1.2.3
+tqdm==4.59.0
